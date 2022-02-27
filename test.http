@@ -1,0 +1,10 @@
+POST http://demo.econt.com/services/Nomenclatures/NomenclaturesService.getOffices.json
+Content-Type: application/json
+Authorization: Basic iasp-dev:iasp-dev
+
+{
+  "countryCode": "BGR",
+  "cityID": 80
+}
+
+###
