@@ -6,7 +6,6 @@
   "repository": "git@github.com:alttreble/econt-js.git",
   "author": "tedraykov <tedraykov@gmail.com>",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "test": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js --no-cache",
     "prepublish": "tsc"
