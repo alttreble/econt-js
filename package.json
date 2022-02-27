@@ -7,14 +7,16 @@
   "author": "tedraykov <tedraykov@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js --no-cache",
+    "test": "jest",
     "prepublish": "tsc"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
     "@semantic-release/npm": "^9.0.0",
     "@types/jest": "^27.1.1",
     "@types/node": "^17.0.21",
     "@types/node-fetch": "^2.6.1",
+    "babel-jest": "^27.5.1",
     "jest": "^27.1.1",
     "semantic-release": "^19.0.2",
     "ts-jest": "^27.1.1",
@@ -23,10 +25,12 @@
   "dependencies": {
     "dotenv": "^16.0.0",
     "envalid": "^7.2.2",
-    "node-fetch": "^3.2.0"
+    "node-fetch": "^2.6.7"
   },
   "release": {
-    "branches": ["trunk"],
+    "branches": [
+      "trunk"
+    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
