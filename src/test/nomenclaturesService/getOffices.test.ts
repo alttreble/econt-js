@@ -1,7 +1,7 @@
-import EcontClient from "../../client";
+import getClientInstance from "../helpers/getClientInstance";
 
 test("should get all offices if Bulgaria", async () => {
-  const client = new EcontClient();
+  const client = getClientInstance();
 
   const {offices} = await client.NomenclaturesService.getOffices({countryCode: "BGR"});
 
@@ -10,7 +10,7 @@ test("should get all offices if Bulgaria", async () => {
 
 
 test("should get all offices if Bulgaria", async () => {
-  const client = new EcontClient();
+  const client = getClientInstance();
 
   const {offices} = await client.NomenclaturesService.getOffices({countryCode: "GRC"});
 
