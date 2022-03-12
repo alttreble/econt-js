@@ -1,19 +1,20 @@
-import {OfficeInput, OfficesPayload} from "../types";
-import Fetcher from "../helpers/fetcher";
+import {Context, OfficeInput, OfficesPayload} from "../types";
 
 export interface NomenclaturesServiceI {
   getOffices(input: OfficeInput): Promise<OfficesPayload>
 }
 
 export default class NomenclaturesService {
-  private readonly fetcher;
+  private readonly context;
 
-  constructor(fetcher: Fetcher) {
-    this.fetcher = fetcher;
+  constructor(context: Context) {
+    this.context = context;
   }
 
   async getOffices(input: OfficeInput = {}) {
-    const res = await this.fetcher.request<OfficeInput>(
+    const {fetcher} = this.context;
+
+    const res = await fetcher.request<OfficeInput>(
       "Nomenclatures/NomenclaturesService.getOffices.json",
       input
     );

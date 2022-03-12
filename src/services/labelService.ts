@@ -1,19 +1,19 @@
-import {CreateLabelInput, CreateLabelPayload} from "../types";
-import Fetcher from "../helpers/fetcher";
+import {Context, CreateLabelInput, CreateLabelPayload} from "../types";
 
 export interface LabelServiceI {
   createLabel(input: CreateLabelInput): Promise<CreateLabelPayload>
 }
 
 export default class LabelService implements LabelServiceI {
-  private readonly fetcher;
+  private readonly context;
 
-  constructor(fetcher: Fetcher) {
-    this.fetcher = fetcher;
+  constructor(context: Context) {
+    this.context = context;
   }
 
   async createLabel(input: CreateLabelInput) {
-    const res = await this.fetcher.requestAuthorized(
+    const {fetcher} = this.context;
+    const res = await fetcher.requestAuthorized(
       "Shipments/LabelService.createLabel.json",
       input
     )

@@ -1,3 +1,9 @@
+import Fetcher from "./helpers/fetcher"
+
+export type Context = {
+  fetcher: Fetcher
+}
+
 /*
  * Office of Econt Express. Required fields for identifying an office - code or ID
  */

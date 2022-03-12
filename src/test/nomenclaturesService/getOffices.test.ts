@@ -9,7 +9,7 @@ test("should get all offices if Bulgaria", async () => {
 });
 
 
-test("should get all offices if Bulgaria", async () => {
+test("should get all offices NOT in Bulgaria", async () => {
   const client = getClientInstance();
 
   const {offices} = await client.NomenclaturesService.getOffices({countryCode: "GRC"});

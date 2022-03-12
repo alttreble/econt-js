@@ -4,7 +4,9 @@ let instance: EcontClient;
 
 export default function getClientInstance() {
   if (!instance) {
-    instance = new EcontClient()
+    instance = new EcontClient({
+      testMode: true
+    })
   }
 
   return instance;

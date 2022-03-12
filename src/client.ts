@@ -1,7 +1,31 @@
-import 'dotenv/config';
+import NomenclaturesService, { NomenclaturesServiceI } from "./services/nomenclaturesService";
+import LabelService, { LabelServiceI } from "./services/labelService";
+import { Context } from './types';
 import Fetcher from "./helpers/fetcher";
-import NomenclaturesService, {NomenclaturesServiceI} from "./services/nomenclaturesService";
-import LabelService, {LabelServiceI} from "./services/labelService";
+
+function buildContext({
+  username = "iasp-dev",
+  password = "iasp-dev",
+  testMode = true
+}: EcontClientOptions): Context {
+  return {
+    fetcher: new Fetcher({
+      username,
+      password,
+      testMode
+    })
+  }
+}
+
+type EcontClientOptions = {
+  username?: undefined
+  password?: undefined
+  testMode: true
+} | {
+  username: string
+  password: string
+  testMode: false
+}
 
 export interface EcontClientI {
   NomenclaturesService: NomenclaturesServiceI,
@@ -11,12 +35,12 @@ export interface EcontClientI {
 class EcontClient implements EcontClientI {
   public NomenclaturesService;
   public LabelService;
-  private readonly fetcher;
+  private readonly context;
 
-  constructor() {
-    this.fetcher = new Fetcher();
-    this.NomenclaturesService = new NomenclaturesService(this.fetcher);
-    this.LabelService = new LabelService(this.fetcher);
+  constructor(options: EcontClientOptions) {
+    this.context = buildContext(options);
+    this.NomenclaturesService = new NomenclaturesService(this.context);
+    this.LabelService = new LabelService(this.context);
   }
 }
 

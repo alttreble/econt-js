@@ -1,56 +1,49 @@
-import fetch from 'node-fetch';
-import env from "../config/env";
+import fetch from 'cross-fetch';
 
-type FetcherAuth = {
-  username: string,
-  password: string,
-  url: string;
+type FetcherOptions = {
+  username: string
+  password: string
+  testMode: boolean
 }
 
 export default class Fetcher {
-  private auth: FetcherAuth = {
-    username: "iasp-dev",
-    password: "iasp-dev",
-    url: env.API_ECONT_TEST_MODE ? env.API_ECONT_TEST_URL : env.API_ECONT_PRODUCTION_URL
-  };
+  private readonly username;
+  private readonly password
+  private readonly demoUrl = "http://demo.econt.com/ee/services/";
+  private readonly productionUrl = "http://ee.econt.com/services/";
+  private readonly testMode;
 
-  constructor() {
-    const [testMode ,username, password] = [
-      env.API_ECONT_TEST_MODE,
-      env.API_ECONT_USERNAME,
-      env.API_ECONT_PASSWORD
-    ];
-
-    if ((!username || !password) && !testMode) {
-      throw new Error("Provide API_ECONT_USERNAME and API_ECONT_PASSWORD environmental variables");
-    }
-
-    if (!testMode) {
-      this.auth.username = username;
-      this.auth.password = password;
-    }
+  constructor({
+    username,
+    password,
+    testMode
+  }: FetcherOptions) {
+    this.username = username;
+    this.password = password;
+    this.testMode = testMode;
   }
 
   async request<B extends object = {}>(path: string, body?: B) {
     return fetch(
-      `${env.API_ECONT_PRODUCTION_URL}${path}`,
+      `${this.productionUrl}${path}`,
       {
-      method: "POST",
-      headers: [
-        ['Content-Type', 'application/json']
-      ],
-      body: JSON.stringify(body)
-    })
+        method: "POST",
+        headers: [
+          ['Content-Type', 'application/json']
+        ],
+        body: JSON.stringify(body)
+      })
   }
 
   async requestAuthorized<B extends object = {}>(path: string, body?: B) {
+    const url = this.testMode ? this.demoUrl : this.productionUrl;
     return fetch(
-      `${this.auth.url}${path}`,
+      `${url}${path}`,
       {
         method: "POST",
         headers: [
           ['Content-Type', 'application/json'],
-          ["Authorization", `Basic ${this.auth.username}:${this.auth.password}`]
+          ["Authorization", `Basic ${this.username}:${this.password}`]
         ],
         body: JSON.stringify(body)
       })
