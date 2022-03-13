@@ -39,4 +39,4 @@ test("should create label", async () => {
 
   const {label} = await client.LabelService.createLabel(mockInput);
   expect(label.totalPrice).toBe(10);
-})
+}, 1000 * 60)
