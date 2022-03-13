@@ -1,5 +1,2 @@
-import EcontClient from "./client";
-
 export * from "./types";
-
-export default EcontClient;
+export {default} from "./client";

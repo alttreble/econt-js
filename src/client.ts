@@ -32,7 +32,7 @@ export interface EcontClientI {
   LabelService: LabelServiceI
 }
 
-class EcontClient implements EcontClientI {
+export default class EcontClient implements EcontClientI {
   public NomenclaturesService;
   public LabelService;
   private readonly context;
@@ -43,5 +43,3 @@ class EcontClient implements EcontClientI {
     this.LabelService = new LabelService(this.context);
   }
 }
-
-export default EcontClient;
