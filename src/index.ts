@@ -1,2 +1,2 @@
 export * from "./types";
-export {default} from "./client";
+export {default as Client} from "./client";

@@ -7,7 +7,7 @@ function buildContext({
   username = "iasp-dev",
   password = "iasp-dev",
   testMode = true
-}: EcontClientOptions): Context {
+}: ClientOptions): Context {
   return {
     fetcher: new Fetcher({
       username,
@@ -17,7 +17,7 @@ function buildContext({
   }
 }
 
-type EcontClientOptions = {
+export type ClientOptions = {
   username?: undefined
   password?: undefined
   testMode: true
@@ -27,17 +27,17 @@ type EcontClientOptions = {
   testMode: false
 }
 
-export interface EcontClientI {
+export interface ClientI {
   NomenclaturesService: NomenclaturesServiceI,
   LabelService: LabelServiceI
 }
 
-export default class EcontClient implements EcontClientI {
+export default class Client implements ClientI {
   public NomenclaturesService;
   public LabelService;
   private readonly context;
 
-  constructor(options: EcontClientOptions) {
+  constructor(options: ClientOptions) {
     this.context = buildContext(options);
     this.NomenclaturesService = new NomenclaturesService(this.context);
     this.LabelService = new LabelService(this.context);
